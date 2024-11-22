@@ -9,8 +9,10 @@ juvenile <- readRDS("06122024_combined_juvenile_integrated.allen_brain_projectio
 
 ```
 DefaultAssay(juvenile)<-"ATAC"
+
 #mononucleosomal / nucleosome-free ratio.  low NucleosomeSignal indicates a higher proportion of fragments in nucleosome-free regions (open chromatin, typically active regulatory regions).
 juvenile <- NucleosomeSignal(juvenile)
+
 # compute TSS enrichment score per cell. ratio of fragments centered at the TSS to fragments in TSS-flanking regions. Higher the better. 
 juvenile <- TSSEnrichment(object = juvenile)
 

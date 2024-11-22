@@ -28,15 +28,15 @@ juvenile$blacklist_ratio <- FractionCountsInRegion(
   regions = blacklist_hg38_unified
 )
 
-```
+```r
 #Note that the last three metrics can be obtained from the output of CellRanger
-```
+
 pdf("DensityScatter_QC_TSS_vs_nCount_peaks.pdf",width=25,height=15)
 DensityScatter(juvenile, x = 'nCount_peaks', y = 'TSS.enrichment', log_x = TRUE, quantiles = TRUE)
 dev.off()
 ```
 
-```
+```r
 #'pct_reads_in_peaks'
 pdf("VlnPlot_QC.pdf",width=25,height=15)
 VlnPlot(
@@ -48,7 +48,7 @@ VlnPlot(
 dev.off()
 ```
 
-```
+```r
 juvenile <- subset(
   x = juvenile,
   subset = nCount_peaks >= 1000 &

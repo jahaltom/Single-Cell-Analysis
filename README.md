@@ -1,5 +1,5 @@
 
-```
+```r
 library(Signac)
 library(Seurat)
 library(dplyr)
@@ -7,7 +7,7 @@ library(dplyr)
 juvenile <- readRDS("06122024_combined_juvenile_integrated.allen_brain_projection.rds")
 ```
 
-```
+```r
 DefaultAssay(juvenile)<-"ATAC"
 
 #mononucleosomal / nucleosome-free ratio.  low NucleosomeSignal indicates a higher proportion of fragments in nucleosome-free regions (open chromatin, typically active regulatory regions).

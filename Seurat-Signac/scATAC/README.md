@@ -60,6 +60,7 @@ VlnPlot(
 )
 dev.off()
 ```
+![alt text](https://github.com/jahaltom/Single-Cell-Analysis/blob/main/Seurat-Signac/scATAC/images/VlnPlot_QC.png)
 
 Subseting Seurat object
 ```r

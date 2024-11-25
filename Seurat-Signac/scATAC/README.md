@@ -95,20 +95,24 @@ saveRDS(juvenile, "06122024_combined_juvenile_integrated.allen_brain_projection.
 
 ```
 # Normalization and linear dimensional reduction
-#Signac performs term frequency-inverse document frequency (TF-IDF) normalization. This is a two-step normalization procedure, that both normalizes across cells to correct for differences in cellular sequencing depth, and across peaks to give higher values to more rare peaks.
+Signac performs term frequency-inverse document frequency (TF-IDF) normalization. This is a two-step normalization procedure, that both normalizes across cells to 
+correct for differences in cellular sequencing depth, and across peaks to give higher values to more rare peaks.
+
+```r
 juvenile <- RunTFIDF(juvenile)
-
 juvenile <- FindTopFeatures(juvenile, min.cutoff = 'q0')
-#ingular value decomposition (SVD) on the TD-IDF matrix, using the features (peaks) selected above
+```
+ingular value decomposition (SVD) on the TD-IDF matrix, using the features (peaks) selected above
+```r
 juvenile <- RunSVD(juvenile)
-
+```
 
 correlation between each LSI component and sequencing depth
-
+```r
 png(""LSIvsSeqDepth.png",width=15,height=15,units="in",res=300)
 DepthCor(juvenile)
 dev.off()
-
+```
 
 
 
@@ -116,16 +120,15 @@ dev.off()
 
 
 #Non-linear dimension reduction and clustering
-
+```r
 juvenile <- RunUMAP(object = juvenile, reduction = 'lsi', dims = 2:30)
 juvenile <- FindNeighbors(object = juvenile, reduction = 'lsi', dims = 2:30)
 juvenile <- FindClusters(object = juvenile, verbose = FALSE, algorithm = 3)
 
-
 png("Cluster.png",width=15,height=15,units="in",res=300)
 DimPlot(object = juvenile, label = TRUE) + NoLegend()
 dev.off()
-
+```
 
 # Gene activites
 

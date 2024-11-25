@@ -9,11 +9,13 @@ juvenile <- readRDS("06122024_combined_juvenile_integrated.allen_brain_projectio
 DefaultAssay(juvenile)<-"ATAC"
 ```
 
+Calulate QC metrics that will be used for filtering.
+
 Mononucleosomal / nucleosome-free ratio.  Low NucleosomeSignal indicates a higher proportion of fragments in nucleosome-free regions (open chromatin, typically active regulatory regions).
 ```r
 juvenile <- NucleosomeSignal(juvenile)
 ```
-Compute TSS enrichment score per cell. ratio of fragments centered at the TSS to fragments in TSS-flanking regions. Higher the better. 
+Compute TSS enrichment score per cell. THis represents the ratio of fragments centered at the TSS to fragments in TSS-flanking regions. Higher is better. 
 ```r
 juvenile <- TSSEnrichment(object = juvenile)
 ```
@@ -35,12 +37,15 @@ juvenile$blacklist_ratio <- FractionCountsInRegion(
 
 Note that the last three metrics can be obtained from the output of CellRanger
 
+Visualize
+
 nCount_peaks vs TSS enrichment
 ```r
 pdf("DensityScatter_QC_TSS_vs_nCount_peaks.pdf",width=25,height=15)
 DensityScatter(juvenile, x = 'nCount_peaks', y = 'TSS.enrichment', log_x = TRUE, quantiles = TRUE)
 dev.off()
 ```
+
 
 Distribution of each QC metric
 ```r

@@ -46,7 +46,7 @@ png("DensityScatter_QC_TSS_vs_nCount_peaks.png",width=15,height=15,units="in",re
 DensityScatter(juvenile, x = 'nCount_peaks', y = 'TSS.enrichment', log_x = TRUE, quantiles = TRUE)
 dev.off()
 ```
-[![PDF Preview](https://github.com/jahaltom/Single-Cell-Analysis/blob/main/Seurat-Signac/scATAC/images/DensityScatter_QC_TSS_vs_nCount_peaks.pdf)
+![alt text](https://github.com/jahaltom/Single-Cell-Analysis/blob/main/Seurat-Signac/scATAC/images/VlnPlot_QC.png)
 
 Distribution of each QC metric
 ```r

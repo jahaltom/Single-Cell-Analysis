@@ -42,7 +42,7 @@ Visualize
 nCount_peaks vs TSS enrichment
 ```r
 
-png("DensityScatter_QC_TSS_vs_nCount_peaks.png",width=10,height=15,units="in",res=300)
+png("DensityScatter_QC_TSS_vs_nCount_peaks.png",width=15,height=15,units="in",res=300)
 DensityScatter(juvenile, x = 'nCount_peaks', y = 'TSS.enrichment', log_x = TRUE, quantiles = TRUE)
 dev.off()
 ```
@@ -51,7 +51,7 @@ dev.off()
 Distribution of each QC metric
 ```r
 #'pct_reads_in_peaks'
-png("VlnPlot_QC.png",width=10,height=15,units="in",res=300)
+png("VlnPlot_QC.png",width=15,height=15,units="in",res=300)
 VlnPlot(
   object = juvenile,
   features = c('nCount_peaks', 'TSS.enrichment', 'blacklist_ratio', 'nucleosome_signal'),

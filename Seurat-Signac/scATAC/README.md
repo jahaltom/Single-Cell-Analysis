@@ -1,21 +1,22 @@
-##Quality control
+#Quality control
+
 ```r
 library(Signac)
 library(Seurat)
 library(dplyr)
 
 juvenile <- readRDS("06122024_combined_juvenile_integrated.allen_brain_projection.rds")
+DefaultAssay(juvenile)<-"ATAC"
 ```
 
+Mononucleosomal / nucleosome-free ratio.  Low NucleosomeSignal indicates a higher proportion of fragments in nucleosome-free regions (open chromatin, typically active regulatory regions).
 ```r
-DefaultAssay(juvenile)<-"ATAC"
-
-#mononucleosomal / nucleosome-free ratio.  low NucleosomeSignal indicates a higher proportion of fragments in nucleosome-free regions (open chromatin, typically active regulatory regions).
 juvenile <- NucleosomeSignal(juvenile)
-
-# compute TSS enrichment score per cell. ratio of fragments centered at the TSS to fragments in TSS-flanking regions. Higher the better. 
+```
+Compute TSS enrichment score per cell. ratio of fragments centered at the TSS to fragments in TSS-flanking regions. Higher the better. 
+```r
 juvenile <- TSSEnrichment(object = juvenile)
-
+```
 #Total number of fragments in peaks: A measure of cellular sequencing depth / complexity. Cells with very few reads may need to be excluded due to low sequencing depth. Cells with extremely high levels may represent doublets, nuclei clumps, or other artefacts.
 
 # add fraction of reads in peaks. Represents the fraction of all fragments that fall within ATAC-seq peaks. Cells with low values (i.e. <15-20%) often represent low-quality cells or technical artifacts that should be removed. Note that this value can be sensitive to the set of peaks used.

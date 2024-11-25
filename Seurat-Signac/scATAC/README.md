@@ -1,4 +1,4 @@
-#Quality control
+# Quality control
 
 ```r
 library(Signac)
@@ -17,26 +17,32 @@ Compute TSS enrichment score per cell. ratio of fragments centered at the TSS to
 ```r
 juvenile <- TSSEnrichment(object = juvenile)
 ```
-#Total number of fragments in peaks: A measure of cellular sequencing depth / complexity. Cells with very few reads may need to be excluded due to low sequencing depth. Cells with extremely high levels may represent doublets, nuclei clumps, or other artefacts.
 
-# add fraction of reads in peaks. Represents the fraction of all fragments that fall within ATAC-seq peaks. Cells with low values (i.e. <15-20%) often represent low-quality cells or technical artifacts that should be removed. Note that this value can be sensitive to the set of peaks used.
+
+#Total number of fragments in peaks: A measure of cellular sequencing depth / complexity. Cells with very few reads may need to be excluded due to low sequencing depth. Cells with extremely high levels may represent doublets, nuclei clumps, or other artefacts.
+#add fraction of reads in peaks. Represents the fraction of all fragments that fall within ATAC-seq peaks. Cells with low values (i.e. <15-20%) often represent low-quality cells or technical artifacts that should be removed. Note that this value can be sensitive to the set of peaks used.
 #juvenile$pct_reads_in_peaks <- juvenile$peak_region_fragments / juvenile$passed_filters * 100
 
-# add blacklist ratio
+Add blacklist ratio. Representing reads which are often associated with technical artifacts.
+```r
 juvenile$blacklist_ratio <- FractionCountsInRegion(
   object = juvenile, 
   assay = 'ATAC',
   regions = blacklist_hg38_unified
 )
+```
 
+
+Note that the last three metrics can be obtained from the output of CellRanger
+
+nCount_peaks vs TSS enrichment
 ```r
-#Note that the last three metrics can be obtained from the output of CellRanger
-
 pdf("DensityScatter_QC_TSS_vs_nCount_peaks.pdf",width=25,height=15)
 DensityScatter(juvenile, x = 'nCount_peaks', y = 'TSS.enrichment', log_x = TRUE, quantiles = TRUE)
 dev.off()
 ```
 
+Distribution of each QC metric
 ```r
 #'pct_reads_in_peaks'
 pdf("VlnPlot_QC.pdf",width=25,height=15)
@@ -49,6 +55,7 @@ VlnPlot(
 dev.off()
 ```
 
+Subseting Seurat object
 ```r
 juvenile <- subset(
   x = juvenile,
@@ -61,3 +68,4 @@ juvenile <- subset(
 )
 saveRDS(juvenile, "06122024_combined_juvenile_integrated.allen_brain_projection.filtered.rds")
 ```
+# Normalization and linear dimensional reduction

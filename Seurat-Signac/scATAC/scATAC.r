@@ -24,14 +24,14 @@ juvenile$blacklist_ratio <- FractionCountsInRegion(
 )
 #Note that the last three metrics can be obtained from the output of CellRanger
 
-pdf("DensityScatter_QC_TSS_vs_nCount_peaks.pdf",width=25,height=15)
+png("DensityScatter_QC_TSS_vs_nCount_peaks.png",width=10,height=15,units="in",res=300)
 DensityScatter(juvenile, x = 'nCount_peaks', y = 'TSS.enrichment', log_x = TRUE, quantiles = TRUE)
 dev.off()
 
 
 
 #'pct_reads_in_peaks'
-pdf("VlnPlot_QC.pdf",width=25,height=15)
+png("VlnPlot_QC.png",width=10,height=15,units="in",res=300)
 VlnPlot(
   object = juvenile,
   features = c('nCount_peaks', 'TSS.enrichment', 'blacklist_ratio', 'nucleosome_signal'),
@@ -74,7 +74,7 @@ juvenile <- FindTopFeatures(juvenile, min.cutoff = 'q0')
 juvenile <- RunSVD(juvenile)
 
 # correlation between each LSI component and sequencing depth
-pdf("LSIvsSeqDepth.pdf",width=25,height=15)
+png(""LSIvsSeqDepth.png",width=10,height=15,units="in",res=300)
 DepthCor(juvenile)
 dev.off()
 
@@ -90,7 +90,8 @@ juvenile <- RunUMAP(object = juvenile, reduction = 'lsi', dims = 2:30)
 juvenile <- FindNeighbors(object = juvenile, reduction = 'lsi', dims = 2:30)
 juvenile <- FindClusters(object = juvenile, verbose = FALSE, algorithm = 3)
 
-pdf("Cluster.pdf",width=25,height=15)
+
+png("Cluster.png",width=10,height=15,units="in",res=300)
 DimPlot(object = juvenile, label = TRUE) + NoLegend()
 dev.off()
 
@@ -124,7 +125,8 @@ saveRDS(juvenile, "06122024_combined_juvenile_integrated.allen_brain_projection.
 ###
 DefaultAssay(juvenile) <- 'GeneActivity'
 
-pdf("MarkerGeneCLuster.pdf",width=25,height=15)
+
+png("MarkerGeneCLuster.png",width=10,height=15,units="in",res=300)
 FeaturePlot( 
   object = juvenile,
   features = c('Gfap', 'Mbp', 'Cx3cr1', 'Cldn5', 'Sox2', 'Foxj1','Prox1','Slc1a3'),

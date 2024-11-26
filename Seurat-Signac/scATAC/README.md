@@ -132,3 +132,50 @@ dev.off()
 
 # Gene activites
 
+# Differential accessibility and Motif Analysis
+
+```r
+df=read.csv("DA/32_Immune.da.csv",row.names=1)
+
+open_hypoxia <- rownames(df[df$avg_log2FC > 3, ])
+open_normoxia <- rownames(df[df$avg_log2FC < -3, ])
+
+pdf("VlnDA.pdf",width=25,height=15)
+plot1 <- print(VlnPlot(
+  object = srt,
+  features = open_hypoxia[1],
+  pt.size = 0.5,
+  idents = c("32_Immune_hypoxia","32_Immune_normoxia")
+))
+dev.off()
+
+```
+
+```r
+pdf("FeatureDA.pdf",width=25,height=15)
+plot2 <- print(FeaturePlot(
+  object = srt,
+  features = open_hypoxia[1],
+  pt.size = 0.5
+))
+dev.off()
+
+```
+
+
+
+```r
+srt <- SortIdents(srt)
+
+# find DA peaks overlapping gene of interest
+regions_highlight <- subsetByOverlaps(StringToGRanges(open_hypoxia), LookupGeneCoords(srt, "Gad1"))
+pdf("CoveragePlotDA.GAD1.pdf",width=25,height=15)
+CoveragePlot(
+  object = srt,
+  region = "Gad1",
+  region.highlight = regions_highlight,
+  extend.upstream = 1000,
+  extend.downstream = 1000
+)
+dev.off()
+```

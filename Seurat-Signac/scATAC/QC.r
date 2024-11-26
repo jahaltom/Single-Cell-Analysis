@@ -68,7 +68,6 @@ VlnPlot(
 )
 dev.off()
 
-saveRDS(juvenile, "06122024_combined_juvenile_integrated.allen_brain_projection.filtered.rds")
 
 
 
@@ -108,4 +107,25 @@ juvenile <- FindClusters(object = juvenile, verbose = FALSE, algorithm = 3)
 png("Cluster.png",width=15,height=15,units="in",res=300)
 DimPlot(object = juvenile, label = TRUE) + NoLegend()
 dev.off()
+
+
+#Gene activity
+DefaultAssay(juvenile)<-"ATAC"
+
+
+
+# Compute GeneActivity scores (this uses peaks linked to genes)
+activities <- GeneActivity(juvenile, assay = "ATAC")
+# Ensure GeneActivity scores are added as a new assay
+juvenile[["GeneActivity"]] <- CreateAssayObject(counts = activities)
+
+
+
+juvenile <- NormalizeData(
+  object = juvenile,
+  assay = 'GeneActivity',
+  normalization.method = 'LogNormalize',
+  scale.factor = median(juvenile$nCount_RNA)
+
+saveRDS(juvenile, "06122024_combined_juvenile_integrated.allen_brain_projection.filtered.rds")
 

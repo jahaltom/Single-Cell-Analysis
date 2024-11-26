@@ -57,7 +57,13 @@ DimPlot(juvenile, reduction = "pca") + NoLegend()
 dev.off()
 
 
+png("Dimheatmap.png",width=15,height=15,units="in",res=300)
+DimHeatmap(juvenile, dims = 1, cells = 500, balanced = TRUE)
+dev.off()
 
+png("Dimheatmaps.png",width=15,height=15,units="in",res=300)
+DimHeatmap(pbmc, dims = 1:15, cells = 500, balanced = TRUE)
+dev.off()
 
 
 

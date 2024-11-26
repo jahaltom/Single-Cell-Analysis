@@ -2,29 +2,7 @@ library(Signac)
 library(Seurat)
 library(dplyr)
 
-juvenile <- readRDS("06122024_combined_juvenile_integrated.allen_brain_projection.rds")
 
-
-DefaultAssay(juvenile)<-"ATAC"
-
-
-
-# Compute GeneActivity scores (this uses peaks linked to genes)
-activities <- GeneActivity(juvenile, assay = "ATAC")
-# Ensure GeneActivity scores are added as a new assay
-juvenile[["GeneActivity"]] <- CreateAssayObject(counts = activities)
-
-
-
-juvenile <- NormalizeData(
-  object = juvenile,
-  assay = 'GeneActivity',
-  normalization.method = 'LogNormalize',
-  scale.factor = median(juvenile$nCount_RNA)
-)
-
-
-saveRDS(juvenile, "06122024_combined_juvenile_integrated.allen_brain_projection.gene-activities.rds")
 
 
 ###

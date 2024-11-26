@@ -44,12 +44,17 @@ juvenile <- ScaleData(juvenile, features = all.genes)
 juvenile <- RunPCA(juvenile)
 
 # Examine and visualize PCA results a few different ways
-print(pbmc[["pca"]], dims = 1:5, nfeatures = 5)
+print(juvenile[["pca"]], dims = 1:5, nfeatures = 5)
 
-VizDimLoadings(pbmc, dims = 1:2, reduction = "pca")
 
-DimPlot(pbmc, reduction = "pca") + NoLegend()
+png("Loadings.png",width=15,height=15,units="in",res=300)
+VizDimLoadings(juvenile, dims = 1:2, reduction = "pca")
+dev.off()
 
+
+png("Dimplot.png",width=15,height=15,units="in",res=300)
+DimPlot(juvenile, reduction = "pca") + NoLegend()
+dev.off()
 
 
 

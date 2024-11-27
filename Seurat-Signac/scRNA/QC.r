@@ -1,4 +1,9 @@
+library(Signac)
+library(Seurat)
+library(dplyr)
 
+
+juvenile=readRDS("06122024_combined_juvenile_integrated.allen_brain_projection.filtered.rds")
 
 
 DefaultAssay(juvenile) <- 'RNA'

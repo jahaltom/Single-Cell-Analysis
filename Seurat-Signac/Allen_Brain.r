@@ -69,17 +69,17 @@ df1<-LayerData(df1, assay = "RNA", layer = "counts")
 df1@Dimnames[[1]]<-df$gene_symbol
 df1<-CreateSeuratObject(counts = df1, project = "Allen Brain 10Xv2 2023", meta.data = HPF_metadata1)
 
-df2<-LayerData(df1, assay = "RNA", layer = "counts")
+df2<-LayerData(df2, assay = "RNA", layer = "counts")
 df2@Dimnames[[1]]<-df$gene_symbol
-df2<-CreateSeuratObject(counts = df2, project = "Allen Brain 10Xv2 2023", meta.data = HPF_metadata1)
+df2<-CreateSeuratObject(counts = df2, project = "Allen Brain 10Xv2 2023", meta.data = HPF_metadata2)
 
 df3<-LayerData(df3, assay = "RNA", layer = "counts")
 df3@Dimnames[[1]]<-df$gene_symbol
-df3<-CreateSeuratObject(counts = df3, project = "Allen Brain 10Xv2 2023", meta.data = HPF_metadata1)
+df3<-CreateSeuratObject(counts = df3, project = "Allen Brain 10Xv2 2023", meta.data = HPF_metadata3)
 
 df4<-LayerData(df4, assay = "RNA", layer = "counts")
 df4@Dimnames[[1]]<-df$gene_symbol
-df4<-CreateSeuratObject(counts = df4, project = "Allen Brain 10Xv2 2023", meta.data = HPF_metadata1)
+df4<-CreateSeuratObject(counts = df4, project = "Allen Brain 10Xv2 2023", meta.data = HPF_metadata4)
 
 
 

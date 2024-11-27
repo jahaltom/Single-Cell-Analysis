@@ -70,6 +70,25 @@ png("Dimheatmaps.png",width=15,height=15,units="in",res=300)
 DimHeatmap(juvenile, dims = 1:15, cells = 500, balanced = TRUE)
 dev.off()
 
+# Determine the ‘dimensionality’ of the dataset 
+png("Elbow.png",width=15,height=15,units="in",res=300)
+ElbowPlot(juvenile,ndims=50)
+dev.off()
 
+# Cluster the cells
+juvenile <- FindNeighbors(juvenile, dims = 1:10)
+juvenile <- FindClusters(juvenile, resolution = 0.5)
+
+
+# Run non-linear dimensional reduction (UMAP/tSNE)
+
+juvenile <- RunUMAP(juvenile, dims = 1:10)
+
+png("UMAP.png",width=15,height=15,units="in",res=300)
+DimPlot(juvenile, reduction = "umap")
+dev.off()
+
+
+saveRDS(juvenile, file = "06122024_combined_juvenile_integrated.allen_brain_projection.filtered.rds")
 
 

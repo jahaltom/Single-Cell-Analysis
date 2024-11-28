@@ -28,7 +28,13 @@ df4 <- subset(df4, cells = cell_metadata$cell_label)
 
 
 
-WMB_10xV2_ACA  <- merge(df1, y = c(df2, df3, df4), add.cell.ids = c("1", "2","3","4"), project = "ACA")
+WMB_10xV2_ACA  <- merge(df1, y = c(df2, df3, df4), project = "ACA")
+
+#Assign gene symbol to metadata
 geneSymbol=df1@assays[["RNA"]]@meta.features[["gene_symbol"]]
+WMB_10xV2_ACA@assays[["RNA"]]@meta.features[["gene_symbol"]]=geneSymbol
+
+#Add metadata
+
 
 saveRDS(WMB_10x_seurat, "ACA_10Xv2_seurat.rds")

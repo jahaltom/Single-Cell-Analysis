@@ -35,6 +35,10 @@ geneSymbol=df1@assays[["RNA"]]@meta.features[["gene_symbol"]]
 WMB_10xV2_ACA@assays[["RNA"]]@meta.features[["gene_symbol"]]=geneSymbol
 
 #Add metadata
+rownames(cell_metadata)=cell_metadata$cell_label
+cell_metadata <- cell_metadata[colnames(WMB_10xV2_ACA), ]
 
+
+WMB_10xV2_ACA <- AddMetaData(WMB_10xV2_ACA, metadata = cell_metadata)
 
 saveRDS(WMB_10x_seurat, "ACA_10Xv2_seurat.rds")
